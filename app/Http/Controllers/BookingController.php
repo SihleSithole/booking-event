@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Mail\CreateEmail;
 use App\Models\Bookings;
 use App\Models\Categories;
 use App\Models\Event;
@@ -15,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -56,10 +58,9 @@ class BookingController extends Controller
 
         ]);
 
-
+        Mail::to(auth()->user()->email)->send(new CreateEmail($booking));
 
         /*SEND AN EMAIL HERE*/
-
 
         return redirect(route('dashboard',  ['identifier' => $role],  absolute:  false));
     }

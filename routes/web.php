@@ -21,25 +21,34 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/*ADD EVENT ORGANISER*/
 Route::post('/add_event', [EventController::class, 'store']);
 
+/*EDIT EVENT ORGANISER*/
 Route::patch('/edit_event', [EventController::class, 'updateEvent']);
 
+/*EDIT EVENT ADMIN*/
 Route::patch('/edit_event_admin', [EventController::class, 'updateEventAdmin']);
 
+/*RENDER USER UPDATE VIEW*/
 Route::post('/edit-user', [ProfileController::class, 'userUpdateView']);
 
+/*ADMIN UPDATE USER*/
 Route::patch('/user-update', [ProfileController::class, 'updateUser']);
 
+/*DELETE AN EVENT*/
 Route::delete('/deleteEvent', [EventController::class, 'destroyEvent']);
 
-//Route::post('/booking-event', [BookingController::class, 'bookingEvent']);
+/*BOOKING AN EVENT*/
 Route::get('/booking-event/{id}', [BookingController::class, 'bookingEvent'])->name('booking-event');
 
+/*USER CANCELLING A BOOKING*/
 Route::delete('/deleteBooking', [BookingController::class, 'cancelBooking']);
 
+/*ADMIN DELETE USER*/
 Route::delete('/adminDeleteUser', [UserManageController::class, 'removeUser']);
 
+/*PAYMENT INTEGRATION*/
 Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
